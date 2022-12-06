@@ -9,8 +9,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm #stores this dependencies in github servers to be then used
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #builds a hash (package-lock.json) on combination of files #to retrieve the cache in the future and recreating that folder on runner of machine
+          #key also indicates whether the cache should be discarded because it must be created
+      - name: Install Dependencies
+        run: npm ci 
       - name: Lint code
         run: npm run lint
       - name: Test code
@@ -24,6 +30,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm #stores this dependencies in github servers to be then used
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #builds a hash (package-lock.json) on combination of files #to retrieve the cache in the future and recreating that folder on runner of machine
+          #key also indicates whether the cache should be discarded because it must be created
       - name: Install dependencies
         run: npm ci
       - name: Build website
