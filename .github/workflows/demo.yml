@@ -30,7 +30,7 @@ jobs:
         run: npm run build
       - name: Publish JS filename # jobs can produce outputs. We want to make the output available to other jobs
         id: publish # to use the steps context. which is then accessed up their
-        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT
+        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
       - name: Stores and Upload artifacts
         uses: actions/upload-artifact@v3
         with:
