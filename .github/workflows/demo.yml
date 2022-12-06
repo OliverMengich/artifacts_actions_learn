@@ -15,6 +15,14 @@ jobs:
         run: npm run lint
       - name: Test code
         run: npm run test
+      - name: Stores/ Uploads Artifacts
+        uses: actions/upload-artifact@v3
+        with: 
+         name: dist-files # to retrieve artifacts 
+         path: | # where to find the files that should be stores 
+          dist #use the pipe (|) to pass multipple commits
+          package.json
+
   build:
     needs: test
     runs-on: ubuntu-latest
